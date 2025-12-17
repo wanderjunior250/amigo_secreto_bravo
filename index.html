@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🍫 Amigo Chocolate da Família Bravo</title>
+    <title>Amigo Chocolate da Família Bravo</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -48,8 +48,25 @@
             cursor: pointer;
             font-size: 12px;
         }
-        .copy-btn:hover {
+        .copy-btn:focus, button:focus {
             background: #45a049;
+            outline: 3px solid #FFD700;
+            outline-offset: 2px;
+        }
+        input:focus {
+            outline: 3px solid #FFD700;
+            outline-offset: 2px;
+        }
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
         }
         h1 { text-align: center; font-size: 2.5em; margin-bottom: 10px; }
         h2 { color: #FFD700; }
@@ -71,35 +88,43 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container" role="main">
         <h1>🍫 Amigo Chocolate da Família Bravo 🍫</h1>
         <p class="subtitle">"Porque chocolate é melhor que presente!" 😄</p>
         
-        <div id="busca-section">
+        <div id="busca-section" role="search">
             <h2>🔍 Digite seu ID para descobrir seu Amigo Chocolate:</h2>
             <div style="text-align: center; margin: 30px 0;">
+                <label for="idInput" class="sr-only">Digite seu código de identificação</label>
                 <input type="text" id="idInput" placeholder="Digite seu ID (ex: ABC123)" 
+                       aria-label="Campo para inserir seu código de identificação"
+                       aria-describedby="id-help"
                        style="padding: 15px; font-size: 18px; border: none; border-radius: 10px; width: 300px; text-align: center;">
+                <div id="id-help" class="sr-only">Digite o código que você recebeu para descobrir seu amigo chocolate</div>
                 <br><br>
-                <button onclick="buscarAmigo()" style="padding: 15px 30px; font-size: 18px; background: #4CAF50; color: white; border: none; border-radius: 10px; cursor: pointer;">
+                <button onclick="buscarAmigo()" 
+                        aria-label="Clique para descobrir quem é seu amigo chocolate"
+                        style="padding: 15px 30px; font-size: 18px; background: #4CAF50; color: white; border: none; border-radius: 10px; cursor: pointer;">
                     🍫 Descobrir Amigo Chocolate
                 </button>
             </div>
         </div>
 
-        <div id="admin-section" style="display:none;">
+        <div id="admin-section" style="display:none;" role="region" aria-label="Seção administrativa">
             <h2>📋 IDs dos Participantes (apenas para organizador):</h2>
-            <button onclick="mostrarIDs()" style="background: #FF6B6B; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
+            <button onclick="mostrarIDs()" 
+                    aria-label="Mostrar lista de códigos dos participantes"
+                    style="background: #FF6B6B; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
                 👁️ Mostrar IDs
             </button>
-            <div id="ids-container" style="display:none;"></div>
+            <div id="ids-container" style="display:none;" role="list" aria-label="Lista de códigos dos participantes"></div>
         </div>
 
-        <div id="consulta" style="display:none;">
+        <div id="consulta" style="display:none;" role="region" aria-label="Resultado do sorteio">
             <div class="consulta-container">
                 <h2>🍫 Seu Amigo Chocolate é:</h2>
-                <div class="resultado">
-                    <div id="seuResultado"></div>
+                <div class="resultado" role="alert" aria-live="polite">
+                    <div id="seuResultado" aria-label="Nome da pessoa que você tirou no amigo chocolate"></div>
                     <p style="font-size: 16px; margin-top: 20px;">
                         🎁 Prepare um chocolate especial para essa pessoa! 🎁
                     </p>
@@ -232,7 +257,7 @@
                     <div style="text-align: center;">
                         <img src="./guicorinthians.jpg" 
                              style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.3);"
-                             alt="Imagem especial">
+                             alt="Imagem especial do Guilherme Corinthians">
                         <p style="margin-top: 15px; font-size: 18px;">🎉 Código especial ativado! 🎉</p>
                     </div>
                 `;
