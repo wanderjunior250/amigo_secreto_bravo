@@ -223,6 +223,22 @@
                 return;
             }
             
+            // Código especial GUI12
+            if (idDigitado === 'GUI12') {
+                document.getElementById('busca-section').style.display = 'none';
+                document.getElementById('admin-section').style.display = 'none';
+                document.getElementById('consulta').style.display = 'block';
+                document.getElementById('seuResultado').innerHTML = `
+                    <div style="text-align: center;">
+                        <img src="./guicorinthians.jpg" 
+                             style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.3);"
+                             alt="Imagem especial">
+                        <p style="margin-top: 15px; font-size: 18px;">🎉 Código especial ativado! 🎉</p>
+                    </div>
+                `;
+                return;
+            }
+            
             // Procura a pessoa pelo ID
             let pessoaEncontrada = null;
             for (let pessoa in ids) {
