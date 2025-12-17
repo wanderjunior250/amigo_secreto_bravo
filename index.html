@@ -264,6 +264,57 @@
                 return;
             }
             
+            // Código especial VINI12
+            if (idDigitado === 'VINI12') {
+                document.getElementById('busca-section').style.display = 'none';
+                document.getElementById('admin-section').style.display = 'none';
+                document.getElementById('consulta').style.display = 'block';
+                document.getElementById('seuResultado').innerHTML = `
+                    <div style="text-align: center;">
+                        <img src="./vini12.jpg" 
+                             style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.3);"
+                             alt="Imagem especial do Vinicius">
+                        <p style="margin-top: 15px; font-size: 18px;">🎉 Código especial ativado! 🎉</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Código especial MUNDIAL
+            if (idDigitado === 'MUNDIAL') {
+                document.getElementById('busca-section').style.display = 'none';
+                document.getElementById('admin-section').style.display = 'none';
+                document.getElementById('consulta').style.display = 'block';
+                document.getElementById('seuResultado').innerHTML = `
+                    <div style="text-align: center;">
+                        <img src="./memes-palmeiras-mundial-chelsea-18-1.jpg" 
+                             style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.3);"
+                             alt="Meme sobre Palmeiras e Mundial">
+                        <p style="margin-top: 15px; font-size: 18px; color: #FFD700;">😂 O Palmeiras não tem Mundial! 😂</p>
+                        <p style="font-size: 16px; margin-top: 10px;">🏆 Quantos Mundiais o Palmeiras tem? ZERO! 🏆</p>
+                        <p style="font-size: 14px; margin-top: 10px; font-style: italic;">Piada clássica do futebol brasileiro! 😄</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Código especial PAMELA
+            if (idDigitado === 'PAMELA') {
+                document.getElementById('busca-section').style.display = 'none';
+                document.getElementById('admin-section').style.display = 'none';
+                document.getElementById('consulta').style.display = 'block';
+                document.getElementById('seuResultado').innerHTML = `
+                    <div style="text-align: center;">
+                        <img src="./panela_de_ferro_com_cabo_de_madeira_e_tampa_de_vidro_179_1_dd9c6f84cebcc02f4b4fafe7f7c2cffd.jpg" 
+                             style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.3);"
+                             alt="Panela de ferro com cabo de madeira">
+                        <p style="margin-top: 15px; font-size: 18px;">🍳 PAMELA = PANELA! 🍳</p>
+                        <p style="font-size: 16px; margin-top: 10px;">😄 Trocadilho clássico! 😄</p>
+                    </div>
+                `;
+                return;
+            }
+            
             // Procura a pessoa pelo ID
             let pessoaEncontrada = null;
             for (let pessoa in ids) {
