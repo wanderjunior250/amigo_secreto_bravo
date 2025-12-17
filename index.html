@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🍫 Amigo Chocolate da Família Bravo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 50%, #CD853F 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .container {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .resultado {
+            background: rgba(255,255,255,0.2);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        .link-item {
+            background: rgba(0,0,0,0.3);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 4px solid #FFD700;
+        }
+        .copy-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .copy-btn:hover {
+            background: #45a049;
+        }
+        h1 { text-align: center; font-size: 2.5em; margin-bottom: 10px; }
+        h2 { color: #FFD700; }
+        .subtitle {
+            text-align: center;
+            font-style: italic;
+            margin-bottom: 30px;
+            font-size: 1.2em;
+        }
+        .consulta-container {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        #seuResultado {
+            font-size: 2em;
+            color: #FFD700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🍫 Amigo Chocolate da Família Bravo 🍫</h1>
+        <p class="subtitle">"Porque chocolate é melhor que presente!" 😄</p>
+        
+        <div id="busca-section">
+            <h2>🔍 Digite seu ID para descobrir seu Amigo Chocolate:</h2>
+            <div style="text-align: center; margin: 30px 0;">
+                <input type="text" id="idInput" placeholder="Digite seu ID (ex: ABC123)" 
+                       style="padding: 15px; font-size: 18px; border: none; border-radius: 10px; width: 300px; text-align: center;">
+                <br><br>
+                <button onclick="buscarAmigo()" style="padding: 15px 30px; font-size: 18px; background: #4CAF50; color: white; border: none; border-radius: 10px; cursor: pointer;">
+                    🍫 Descobrir Amigo Chocolate
+                </button>
+            </div>
+        </div>
+
+        <div id="admin-section" style="display:none;">
+            <h2>📋 IDs dos Participantes (apenas para organizador):</h2>
+            <button onclick="mostrarIDs()" style="background: #FF6B6B; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
+                👁️ Mostrar IDs
+            </button>
+            <div id="ids-container" style="display:none;"></div>
+        </div>
+
+        <div id="consulta" style="display:none;">
+            <div class="consulta-container">
+                <h2>🍫 Seu Amigo Chocolate é:</h2>
+                <div class="resultado">
+                    <div id="seuResultado"></div>
+                    <p style="font-size: 16px; margin-top: 20px;">
+                        🎁 Prepare um chocolate especial para essa pessoa! 🎁
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Lista de participantes
+        const participantes = [
+            "Mariana", "Mateus", "Guilherme", "Alice", "Thifany", "Isaías", 
+            "Nadir", "Carine", "Neide", "Laís", "Manuella", "Nerli", 
+            "Pamela", "Junior", "Fernanda", "Adriano", "Bento", "Neuza", 
+            "Aurora", "Natália", "Gabriel PP", "Estefane", "Paulo Henrique", 
+            "Leticia", "Gabriel", "Daniel", "Eliana", "Vinicius", "Carol", 
+            "Cleyton", "Matheus", "Marina", "Mayra", "Simone", "Ademir", 
+            "Leonardo", "Isabella", "Bianca", "Joao Lucas", "Camille", 
+            "Bruno", "Paulo", "Sonia"
+        ];
+
+        // Sorteio pré-definido (embaralhado de forma segura)
+        const pares = {
+            "Mariana": "Guilherme",
+            "Mateus": "Thifany", 
+            "Guilherme": "Nadir",
+            "Alice": "Manuella",
+            "Thifany": "Junior",
+            "Isaías": "Neuza",
+            "Nadir": "Gabriel PP",
+            "Carine": "Paulo Henrique",
+            "Neide": "Gabriel",
+            "Laís": "Eliana",
+            "Manuella": "Carol",
+            "Nerli": "Matheus",
+            "Pamela": "Mayra",
+            "Junior": "Ademir",
+            "Fernanda": "Isabella",
+            "Adriano": "Joao Lucas",
+            "Bento": "Bruno",
+            "Neuza": "Sonia",
+            "Aurora": "Mateus",
+            "Natália": "Alice",
+            "Gabriel PP": "Carine",
+            "Estefane": "Laís",
+            "Paulo Henrique": "Nerli",
+            "Leticia": "Fernanda",
+            "Gabriel": "Bento",
+            "Daniel": "Aurora",
+            "Eliana": "Vinicius",
+            "Vinicius": "Cleyton",
+            "Carol": "Marina",
+            "Cleyton": "Simone",
+            "Matheus": "Leonardo",
+            "Marina": "Bianca",
+            "Mayra": "Camille",
+            "Simone": "Paulo",
+            "Ademir": "Mariana",
+            "Leonardo": "Isaías",
+            "Isabella": "Neide",
+            "Bianca": "Pamela",
+            "Joao Lucas": "Adriano",
+            "Camille": "Estefane",
+            "Bruno": "Leticia",
+            "Paulo": "Daniel",
+            "Sonia": "Natália"
+        };
+
+        // IDs únicos para cada pessoa
+        const ids = {
+            "Mariana": "MR2024",
+            "Mateus": "MT7891",
+            "Guilherme": "GL4567",
+            "Alice": "AL9123",
+            "Thifany": "TH3456",
+            "Isaías": "IS8901",
+            "Nadir": "ND2345",
+            "Carine": "CR6789",
+            "Neide": "NE1234",
+            "Laís": "LS5678",
+            "Manuella": "MN9012",
+            "Nerli": "NR3456",
+            "Pamela": "PM7890",
+            "Junior": "JR1234",
+            "Fernanda": "FN5678",
+            "Adriano": "AD9012",
+            "Bento": "BT3456",
+            "Neuza": "NZ7890",
+            "Aurora": "AU1234",
+            "Natália": "NT5678",
+            "Gabriel PP": "GP9012",
+            "Estefane": "ES3456",
+            "Paulo Henrique": "PH7890",
+            "Leticia": "LT1234",
+            "Gabriel": "GB5678",
+            "Daniel": "DN9012",
+            "Eliana": "EL3456",
+            "Vinicius": "VN7890",
+            "Carol": "CL1234",
+            "Cleyton": "CY5678",
+            "Matheus": "MH9012",
+            "Marina": "MR3456",
+            "Mayra": "MY7890",
+            "Simone": "SM1234",
+            "Ademir": "AD5678",
+            "Leonardo": "LD9012",
+            "Isabella": "IB3456",
+            "Bianca": "BC7890",
+            "Joao Lucas": "JL1234",
+            "Camille": "CM5678",
+            "Bruno": "BR9012",
+            "Paulo": "PL3456",
+            "Sonia": "SN7890"
+        };
+
+        function buscarAmigo() {
+            const idDigitado = document.getElementById('idInput').value.trim().toUpperCase();
+            
+            if (!idDigitado) {
+                alert('Por favor, digite seu ID! 🆔');
+                return;
+            }
+            
+            // Procura a pessoa pelo ID
+            let pessoaEncontrada = null;
+            for (let pessoa in ids) {
+                if (ids[pessoa] === idDigitado) {
+                    pessoaEncontrada = pessoa;
+                    break;
+                }
+            }
+            
+            if (pessoaEncontrada && pares[pessoaEncontrada]) {
+                document.getElementById('busca-section').style.display = 'none';
+                document.getElementById('admin-section').style.display = 'none';
+                document.getElementById('consulta').style.display = 'block';
+                document.getElementById('seuResultado').textContent = pares[pessoaEncontrada];
+            } else {
+                alert('ID não encontrado! Verifique se digitou corretamente. 🚫');
+                document.getElementById('idInput').value = '';
+            }
+        }
+
+        function mostrarIDs() {
+            const container = document.getElementById('ids-container');
+            container.style.display = container.style.display === 'none' ? 'block' : 'none';
+            
+            if (container.style.display === 'block') {
+                container.innerHTML = '';
+                for (let pessoa of participantes) {
+                    container.innerHTML += `
+                        <div class="link-item">
+                            <strong>🍫 ${pessoa}</strong>: <code>${ids[pessoa]}</code>
+                        </div>
+                    `;
+                }
+            }
+        }
+
+        // Permite buscar com Enter
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('idInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    buscarAmigo();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
